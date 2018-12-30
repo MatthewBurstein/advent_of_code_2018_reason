@@ -2,10 +2,11 @@
   "name": "advent_of_code_2018_reason",
   "version": "0.1.0",
   "scripts": {
-    "build": "bsb -make-world",
-    "start": "bsb -make-world -w",
     "clean": "bsb -clean-world",
-    "test": "jest"
+    "build": "bsb -make-world",
+    "test": "npm run build && jest",
+    "test:watch": "jest --watchAll",
+    "watch": "bsb -make-world -w"
   },
   "keywords": [
     "BuckleScript"
@@ -13,6 +14,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@glennsl/bs-jest": "^0.4.6",
     "bs-jest": "^0.3.2",
     "bs-platform": "^4.0.8",
     "jest": "^23.6.0"
