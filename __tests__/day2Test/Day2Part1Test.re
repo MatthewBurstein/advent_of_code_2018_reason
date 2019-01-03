@@ -11,3 +11,15 @@ describe("countOccurences", () => {
         expect(countOccurences("abcbaca", 'a')) |> toEqual(3);
     });
 });
+
+describe("isDuplicate", () => {
+    test("returns true when string contains character exactly twice", () => {
+        let oneDuplicate = "anshdbar"
+        expect(isDuplicate(oneDuplicate, 'a')) |> toEqual(true);
+    });
+
+    test("returns false when string contains character three times", () => {
+        let oneTriplicate = "anhgabsal";
+        expect(isDuplicate(oneTriplicate, 'a')) |> toEqual(false);
+    })
+});

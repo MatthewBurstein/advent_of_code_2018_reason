@@ -14,3 +14,14 @@ let countOccurences = (str: string, letter: char) => {
         str)
     count^;
 }
+
+let isDuplicate = (str: string, testLetter: char) => {
+    let firstOccurenceIdx = String.index(str, testLetter);
+    switch (String.contains_from(str, firstOccurenceIdx + 1, testLetter)) {
+    | false => false;
+    | true => {
+            let secondOcurrenceIdx = String.index_from(str, firstOccurenceIdx + 1, testLetter);
+            ! String.contains_from(str, secondOcurrenceIdx + 1, testLetter);
+        };
+    };
+};
