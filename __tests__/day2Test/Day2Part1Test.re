@@ -12,7 +12,19 @@ describe("countOccurences", () => {
     });
 });
 
+describe("buildSubstringAfterOccurence", () => {
+    test("if character is present returns substring of string starting after first occurence", () => {
+        let testString = "abcdefg";
+        expect(getSubstringAfterOccurence(testString, 'c')) |> toEqual("defg");
+    });
+})
+
 describe("isDuplicate", () => {
+    test("returns false when string contains character once", () => {
+        let noDuplicates = "abcdefg";
+        expect(isDuplicate(noDuplicates, 'c')) |> toEqual(false);
+    })
+
     test("returns true when string contains character exactly twice", () => {
         let oneDuplicate = "anshdbar"
         expect(isDuplicate(oneDuplicate, 'a')) |> toEqual(true);
