@@ -1,4 +1,4 @@
-let data = Array.map(int_of_string, DataDay1.data)
+let data = Array.map(int_of_string, Day1Data.data)
 
 let updateTotals = ( newTotal: int, totals: array(int)) => switch totals {
     | [||] => [|newTotal|];

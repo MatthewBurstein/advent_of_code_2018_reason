@@ -1,4 +1,4 @@
-let data = DataDay1.data;
+let data = Day1Data.data;
 
 let add = (x: int, y: int) => x + y;
 
