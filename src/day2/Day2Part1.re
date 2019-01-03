@@ -3,35 +3,52 @@
 - Analyse each entry for duplicate characters
 - Analyse each entry for triplicate characters
 */
-
-let increaseCountIfEqual = (count: int, first: char, second: char) => {
-    first == second ? count + 1 : count;
-}
-
-let countOccurences = (str: string, letter: char) => {
-    let count = ref(0);
-    String.iter(
-        (strElement) => {count := increaseCountIfEqual(count^, strElement, letter)},
-        str)
-    count^;
-}
-
-let getSubstringAfterOccurence = (str: string, letter: char) => {
+let getSubstringAfterOccurence = (letter: char, str: string) => {
     let idxAfterOccurence = String.index(str, letter) + 1;
     String.sub(str, idxAfterOccurence, String.length(str) - idxAfterOccurence);
 };
 
+let stringContainsChar = (letter: char, str: string) => {
+    String.contains(str, letter)
+}
+
 let isDuplicate = (str: string, letter: char) => {
-    switch (String.contains(str, letter)) {
+    let hasLetter = stringContainsChar(letter);
+    let getSubstring = getSubstringAfterOccurence(letter);
+    switch (hasLetter(str)) {
     | false => false;
     | true => {
-        let substring1 = getSubstringAfterOccurence(str, letter);
-        switch (String.contains(substring1, letter)) {
+        let substring1 = getSubstring(str);
+        switch (hasLetter(substring1)) {
         | false => false;
         | true => {
-            let substring2 = getSubstringAfterOccurence(substring1, letter);
-            ! String.contains(substring2, letter)}
+            let substring2 = getSubstring(substring1);
+            ! hasLetter(substring2)}
         }
     };
+    };
+};
+
+let isTriplicate = (str: string, letter: char) => {
+    let hasLetter = stringContainsChar(letter);
+    let getSubstring = getSubstringAfterOccurence(letter);
+    switch (hasLetter(str)) {
+        | false => false;
+        | true => {
+            let substring1 = getSubstring(str);
+            switch (hasLetter(substring1)) {
+                | false => false;
+                | true => {
+                    let substring2 = getSubstring(substring1);
+                    switch (hasLetter(substring2)) {
+                        | false => false;
+                        | true => {
+                            let substring3 = getSubstring(substring2);
+                            ! hasLetter(substring3);                   
+                        };
+                    };
+                };
+            };
+        };
     };
 };
