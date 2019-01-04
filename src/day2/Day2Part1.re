@@ -11,14 +11,14 @@ let isDuplicate = (str: string, letter: char) => {
     let hasLetter = stringContainsChar(letter);
     let getSubstring = getSubstringAfterOccurence(letter);
     switch (hasLetter(str)) {
-    | false => false;
-    | true => {
-        let substring1 = getSubstring(str);
-        switch (hasLetter(substring1)) {
-            | false => false;
-            | true => {
-                let substring2 = getSubstring(substring1);
-                ! hasLetter(substring2)
+        | false => false;
+        | true => {
+            let substring1 = getSubstring(str);
+            switch (hasLetter(substring1)) {
+                | false => false;
+                | true => {
+                    let substring2 = getSubstring(substring1);
+                    ! hasLetter(substring2)
                 };
             };
         };
@@ -49,44 +49,32 @@ let isTriplicate = (str: string, letter: char) => {
     };
 };
 
-let hasDuplicate = (str: string) => {
+let hasMultiple = (str: string, isMultiple:(string, char) => bool) => {
     let break = ref(false);
-    let duplicatePresent = ref(false);
+    let multiplePresent = ref(false);
     let position = ref(0);
     while(! break^) {
         let testLetter = String.get(str, position^);
-        switch (isDuplicate(str, testLetter)) {
+        switch (isMultiple(str, testLetter)) {
             | false => position := position^ + 1;
             | true => {
                 break := true;
-                duplicatePresent := true;
+                multiplePresent := true;
             }
         }
         if (position^ == String.length(str) - 1) {
             break := true
         }
     };
-    duplicatePresent^;
+    multiplePresent^;
+}
+
+let hasDuplicate = (str: string) => {
+    hasMultiple(str, isDuplicate);
 }
 
 let hasTriplicate = (str: string) => {
-    let break = ref(false);
-    let triplicatePresent = ref(false);
-    let position = ref(0);
-    while(! break^) {
-        let testLetter = String.get(str, position^);
-        switch (isTriplicate(str, testLetter)) {
-            | false => position := position^ + 1;
-            | true => {
-                break := true;
-                triplicatePresent := true;
-            }
-        }
-        if (position^ == String.length(str) - 1) {
-            break := true
-        }
-    };
-    triplicatePresent^;
+   hasMultiple(str, isTriplicate);
 }
 
 let calculateChecksum = (data: list(string)) => {
