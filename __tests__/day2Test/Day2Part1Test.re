@@ -7,7 +7,7 @@ describe("buildSubstringAfterOccurence", () => {
         let testString = "abcdefg";
         expect(getSubstringAfterOccurence('c', testString)) |> toEqual("defg");
     });
-})
+});
 
 describe("isDuplicate", () => {
     test("returns false when string contains character once", () => {
@@ -47,3 +47,65 @@ describe("isTriplicate", () => {
         expect(isTriplicate(oneQuadruplicate, 'a')) |> toEqual(false);
     })
 });
+
+describe("hasDuplicate", () => {
+    test("returns true when a duplicate is present", () => {
+        let oneDuplicate = "skjdhfd";
+        expect(hasDuplicate(oneDuplicate)) |> toEqual(true);
+    });
+
+    test("returns true when has a duplicate and a triplicate", () => {
+        let duplicateAndTriplicate = "abhadha";
+        expect(hasDuplicate(duplicateAndTriplicate)) |> toEqual(true);
+    });
+
+    test("returns false when no duplicate is present", () => {
+        let noDuplicates = "asdghjk";
+        expect(hasDuplicate(noDuplicates)) |> toEqual(false);
+    });
+
+    test("returns false when has a triplicate and no duplicate", () => {
+        let oneTriplicate = "asdfaghjak";
+        expect(hasDuplicate(oneTriplicate)) |> toEqual(false);
+    })
+});
+
+
+describe("hasTriplicate", () => {
+    test("returns true when a triplicate is present", () => {
+        let oneTriplicate = "sdkjdhfd";
+        expect(hasTriplicate(oneTriplicate)) |> toEqual(true);
+    });
+
+    test("returns true when has a duplicate and a triplicate", () => {
+        let duplicateAndTriplicate = "abhadha";
+        expect(hasTriplicate(duplicateAndTriplicate)) |> toEqual(true);
+    });
+
+    test("returns false when no triplicate is present", () => {
+        let noDuplicates = "asdghjk";
+        expect(hasTriplicate(noDuplicates)) |> toEqual(false);
+    });
+
+    test("returns false when has a duplicate and no triplicate", () => {
+        let oneTriplicate = "sdfaghjak";
+        expect(hasTriplicate(oneTriplicate)) |> toEqual(false);
+    })
+});
+
+describe("calculateChecksum", () => {
+    test("returns appropriate checksum for data 1", () => {
+        let data = ["abc", "aab", "aaa"];
+        expect(calculateChecksum(data)) |> toEqual(1);
+    })
+
+    test("returns appropriate checksum for data 2", () => {
+        let data = ["bbb", "aab", "aaa"];
+        expect(calculateChecksum(data)) |> toEqual(2);
+    })
+
+    test("returns appropriate checksum for data 3", () => {
+        let data = ["abc", "aab", "aaa", "ccd", "ggg", "aabbac", "qquxudu"];
+        expect(calculateChecksum(data)) |> toEqual(16);
+    })
+})

@@ -24,8 +24,8 @@ let isDuplicate = (str: string, letter: char) => {
         | true => {
             let substring2 = getSubstring(substring1);
             ! hasLetter(substring2)}
-        }
-    };
+            }
+        };
     };
 };
 
@@ -52,3 +52,55 @@ let isTriplicate = (str: string, letter: char) => {
         };
     };
 };
+
+let hasDuplicate = (str: string) => {
+    let break = ref(false);
+    let duplicatePresent = ref(false);
+    let position = ref(0);
+    while(! break^) {
+        let testLetter = String.get(str, position^);
+        switch (isDuplicate(str, testLetter)) {
+            | false => {position := position^ + 1};
+            | true => {
+                break := true;
+                duplicatePresent := true;
+            }
+        }
+        if (position^ == String.length(str) - 1) {
+            break := true
+        }
+    };
+    duplicatePresent^;
+}
+
+let hasTriplicate = (str: string) => {
+    let break = ref(false);
+    let triplicatePresent = ref(false);
+    let position = ref(0);
+    while(! break^) {
+        let testLetter = String.get(str, position^);
+        switch (isTriplicate(str, testLetter)) {
+            | false => {position := position^ + 1};
+            | true => {
+                break := true;
+                triplicatePresent := true;
+            }
+        }
+        if (position^ == String.length(str) - 1) {
+            break := true
+        }
+    };
+    triplicatePresent^;
+}
+
+let calculateChecksum = (data: list(string)) => {
+    let duplicatesCount = List.filter(str => hasDuplicate(str), data)
+        |> List.length;
+    let triplicatesCount = List.filter(str => hasTriplicate(str), data)
+        |> List.length;
+    duplicatesCount * triplicatesCount;
+}
+
+let data = Day2Data.data;
+
+print_int(calculateChecksum(data))
