@@ -1,8 +1,3 @@
-/* 
-- Iterate over list
-- Analyse each entry for duplicate characters
-- Analyse each entry for triplicate characters
-*/
 let getSubstringAfterOccurence = (letter: char, str: string) => {
     let idxAfterOccurence = String.index(str, letter) + 1;
     String.sub(str, idxAfterOccurence, String.length(str) - idxAfterOccurence);
@@ -20,11 +15,12 @@ let isDuplicate = (str: string, letter: char) => {
     | true => {
         let substring1 = getSubstring(str);
         switch (hasLetter(substring1)) {
-        | false => false;
-        | true => {
-            let substring2 = getSubstring(substring1);
-            ! hasLetter(substring2)}
-            }
+            | false => false;
+            | true => {
+                let substring2 = getSubstring(substring1);
+                ! hasLetter(substring2)
+                };
+            };
         };
     };
 };
@@ -60,7 +56,7 @@ let hasDuplicate = (str: string) => {
     while(! break^) {
         let testLetter = String.get(str, position^);
         switch (isDuplicate(str, testLetter)) {
-            | false => {position := position^ + 1};
+            | false => position := position^ + 1;
             | true => {
                 break := true;
                 duplicatePresent := true;
@@ -80,7 +76,7 @@ let hasTriplicate = (str: string) => {
     while(! break^) {
         let testLetter = String.get(str, position^);
         switch (isTriplicate(str, testLetter)) {
-            | false => {position := position^ + 1};
+            | false => position := position^ + 1;
             | true => {
                 break := true;
                 triplicatePresent := true;
@@ -96,9 +92,9 @@ let hasTriplicate = (str: string) => {
 let calculateChecksum = (data: list(string)) => {
     let duplicatesCount = List.filter(str => hasDuplicate(str), data)
         |> List.length;
-    let triplicatesCount = List.filter(str => hasTriplicate(str), data)
-        |> List.length;
-    duplicatesCount * triplicatesCount;
+    List.filter(str => hasTriplicate(str), data)
+        |> List.length
+        |> (*)(duplicatesCount);
 }
 
 let data = Day2Data.data;
