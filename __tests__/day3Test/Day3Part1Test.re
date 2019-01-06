@@ -24,6 +24,14 @@ describe("getFirstRowPoints", () => {
     })
 })
 
+describe("buildColumnPointsFromTop", () => {
+    test("builds a column of points given a rectangle and the top point", () => {
+        let firstPoint = (4, 5)
+        let expectedColumn = [(4, 5), (4, 6), (4, 7), (4, 8)]
+        expect(buildColumnPointsFromTop(fourByFive, firstPoint)) |> toEqual(expectedColumn)
+    })
+})
+
 describe("buildPointsList", () => {
     test("returns correct list of points for 1x1 rectangle", () => {
         let oneByOne = {
@@ -44,8 +52,9 @@ describe("buildPointsList", () => {
             height: 2,
             width: 3
         };
-        let expectedPoints = [(3, 4), (4, 4), (5, 4),
-                              (3, 5), (4, 5), (5, 5)];
+        let expectedPoints = [(3, 4), (3, 5),
+                              (4, 4), (4, 5),
+                              (5, 4), (5, 5)];
 
         expect(buildPointsList(twoByThree)) |> toEqual(expectedPoints);
     });
