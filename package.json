@@ -7,6 +7,7 @@
     "test": "npm run build && jest",
     "test:watch": "jest --watchAll",
     "test:watch-day-2": "jest --watchAll -- -t __tests__/day2Test",
+    "test:watch-day-3": "jest --watchAll -- -t __tests__/day3Test",
     "watch": "bsb -make-world -w"
   },
   "keywords": [
