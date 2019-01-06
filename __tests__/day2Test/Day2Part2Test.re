@@ -2,41 +2,31 @@ open Jest;
 open Expect;
 open Day2Part2;
 
-describe("findCommonLetterPositions", () => {
-    test("returns string for identical strings", () => {
-        expect(findCommonLetterPositions("abc", "abc")) |> toEqual("abc");
-    });
-
-    test("returns matching letter positions for two different strings", () => {
-        expect(findCommonLetterPositions("abc", "amc")) |> toEqual("ac");
-    });
-})
-
 describe("areCorrectBoxes", () => {
-    test("returns (true, commonLetterPositions) if ids differ in exactly one place", () => {
-        expect(areCorrectBoxes("abcde", "abcze")) |> toEqual("abce");
+    test("returns CommonCharacters(string) if ids differ in exactly one place", () => {
+        expect(areCorrectBoxes("abcde", "abcze")) |> toEqual(CommonCharacters("abce"));
     });
 
-    test("returns (false, emptyString) if ids differ in no places", () => {
-        expect(areCorrectBoxes("abcde", "abcde")) |> toEqual( "");
+    test("returns NoMatch if ids differ in no places", () => {
+        expect(areCorrectBoxes("abcde", "abcde")) |> toEqual(NoMatch);
     });
 
-    test("returns (false, emptyString) if ids differ in more than one place", () => {
-        expect(areCorrectBoxes("abcde", "azxye")) |> toEqual("");
+    test("returns NoMatch if ids differ in more than one place", () => {
+        expect(areCorrectBoxes("abcde", "azxye")) |> toEqual(NoMatch);
     });
 });
 
 describe("analyseSingleId", () => {
-    test("returns empty string if there is no off by one id match in the list", () => {
+    test("returns NoMatch if there is no off by one id match in the list", () => {
         let id = "abcde"
         let testData = ["defgh", "ghijk", "lkjhg"];
-        expect(analyseSingleId(id, testData)) |> toEqual("")
+        expect(analyseSingleId(id, testData)) |> toEqual(NoMatch)
     });
 
-    test("returns matched characters if there is an off by one id match in the list", () => {
+    test("returns CommonCharacters(string) if there is an off by one id match in the list", () => {
         let id = "match";
         let testData = ["defgh", "ghijk", "mztch", "lkjhg"];
-        expect(analyseSingleId(id, testData)) |> toEqual("mtch")
+        expect(analyseSingleId(id, testData)) |> toEqual(CommonCharacters("mtch"))
     });
 });
 

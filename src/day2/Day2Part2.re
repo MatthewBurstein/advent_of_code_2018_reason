@@ -1,4 +1,10 @@
-let findCommonLetterPositions = (id1: string, id2: string) => {
+type match = NoMatch | CommonCharacters(string);
+
+let compareLength = (stringForBase: string, stringUnderTest: string) => {
+    String.length(stringUnderTest) == String.length(stringForBase) - 1;
+}
+
+let areCorrectBoxes = (id1: string, id2: string): match => {
     let output = ref("");
     String.iteri((idx, letter) => {
         switch(String.get(id2, idx) == letter) {
@@ -8,12 +14,7 @@ let findCommonLetterPositions = (id1: string, id2: string) => {
             };
         };
     }, id1);
-    output^;
-};
-
-let areCorrectBoxes = (id1: string, id2: string) => {
-    let commonPositions = findCommonLetterPositions(id1, id2);
-    String.length(id1) == String.length(commonPositions) + 1 ? commonPositions : "";
+    compareLength(id1, output^) ? CommonCharacters(output^) : NoMatch;
 };
 
 let extractFirstElement = (theList: list('a)) => {
@@ -26,16 +27,16 @@ let extractFirstElement = (theList: list('a)) => {
 let rec analyseSingleId = (id: string, data: list(string)) => {
     let (testElement, rest) = extractFirstElement(data);
     switch(areCorrectBoxes(id, testElement)) {
-        | "" => analyseSingleId(id, rest);
-        | commonCharacters => commonCharacters;
-        | exception Invalid_argument("index out of bounds") => "";
+        | NoMatch => analyseSingleId(id, rest);
+        | CommonCharacters(chars) => CommonCharacters(chars);
+        | exception Invalid_argument("index out of bounds") => NoMatch;
     };
 };
 
 let rec findCorrectBoxes = (data: list(string)): string => {
     let (testElement, rest) = extractFirstElement(data);
     switch(analyseSingleId(testElement, rest)) {
-        | "" => findCorrectBoxes(rest);
-        | commonCharacters => commonCharacters;
+        | NoMatch => findCorrectBoxes(rest);
+        | CommonCharacters(chars) => chars;
     };
 };
