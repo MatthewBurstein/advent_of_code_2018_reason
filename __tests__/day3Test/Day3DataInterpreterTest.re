@@ -14,17 +14,17 @@ describe("getId", () => {
     });
 });
 
-describe ("getStartCol", () => {
+describe ("getColStart", () => {
     test("gets the first column this claimString uses", () => {
         let claimString = "#602 @ 951,319: 11x24";
-        expect(getStartCol(claimString)) |> toEqual(952);
+        expect(getColStart(claimString)) |> toEqual(952);
     })
 })
 
-describe("getStartRow", () => {
+describe("getRowStart", () => {
     test("gets the first row this claimString uses", () => {
         let claimString = "#602 @ 951,319: 11x24";
-        expect(getStartRow(claimString)) |> toEqual(320);
+        expect(getRowStart(claimString)) |> toEqual(320);
     })
 })
 
@@ -47,8 +47,8 @@ describe("buildClaim", () => {
         let claimString = "#602 @ 951,319: 11x24";
         let expectedClaim = {
             id: 602,
-            startCol: 952,
-            startRow: 320,
+            colStart: 952,
+            rowStart: 320,
             height: 11,
             width: 24
         }

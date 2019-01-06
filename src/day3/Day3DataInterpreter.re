@@ -1,7 +1,7 @@
 type claim = {
     id: int,
-    startCol: int,
-    startRow: int,
+    colStart: int,
+    rowStart: int,
     height: int,
     width: int
 }
@@ -12,7 +12,7 @@ let getId = (claimString: string): int => {
     |> int_of_string
 }
 
-let getStartCol = (claimString: string): int => {
+let getColStart = (claimString: string): int => {
     let inchesFromLeftPosition = String.index(claimString, '@') + 2;
     let inchesFromLeftPositionEnd = String.index(claimString, ',');
     String.sub(claimString, inchesFromLeftPosition, inchesFromLeftPositionEnd - inchesFromLeftPosition)
@@ -20,7 +20,7 @@ let getStartCol = (claimString: string): int => {
     |> (+)(1)
 }
 
-let getStartRow = (claimString: string): int => {
+let getRowStart = (claimString: string): int => {
     let inchesFromTopPosition = String.index(claimString, ',') + 1;
     let inchesFromTopPositionEnd = String.index(claimString, ':');
     String.sub(claimString, inchesFromTopPosition, inchesFromTopPositionEnd - inchesFromTopPosition)
@@ -41,8 +41,8 @@ let getWidth = (claimString: string): int => {
 let buildClaim = (claimString: string): claim => { 
     {
         id: getId(claimString),
-        startCol: getStartCol(claimString),
-        startRow: getStartRow(claimString),
+        colStart: getColStart(claimString),
+        rowStart: getRowStart(claimString),
         height: getHeight(claimString),
         width: getWidth(claimString)
     };
