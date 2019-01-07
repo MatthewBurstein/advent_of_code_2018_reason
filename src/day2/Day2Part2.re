@@ -6,11 +6,11 @@ let compareLength = (stringForBase: string, stringUnderTest: string) => {
 
 let areCorrectBoxes = (id1: string, id2: string): match => {
     let output = ref("");
-    String.iteri((idx, letter) => {
-        switch(String.get(id2, idx) == letter) {
-            | false => ();
-            | true => {
-                output := output^ ++ String.make(1, letter);
+    String.iteri((idx, id1Letter) => {
+        switch(String.get(id2, idx)) {
+            | id2Letter when id2Letter != id1Letter => ();
+            | id2Letter => {
+                output := output^ ++ String.make(1, id2Letter);
             };
         };
     }, id1);
